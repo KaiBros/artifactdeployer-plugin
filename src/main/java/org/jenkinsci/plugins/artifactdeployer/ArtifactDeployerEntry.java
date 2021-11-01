@@ -22,7 +22,6 @@
  */
 package org.jenkinsci.plugins.artifactdeployer;
 
-import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import java.io.Serializable;

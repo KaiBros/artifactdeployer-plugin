@@ -40,15 +40,15 @@ import java.util.List;
  */
 public class ArtifactDeployerCopy implements FilePath.FileCallable<List<ArtifactDeployerVO>> {
 
-    private BuildListener listener;
+    private final BuildListener listener;
 
-    private String includes;
+    private final String includes;
 
-    private String excludes;
+    private final String excludes;
 
-    private boolean flatten;
+    private final boolean flatten;
 
-    private FilePath outputFilePath;
+    private final FilePath outputFilePath;
 
     private int numberOfCurrentDeployedArtifacts;
 
@@ -70,12 +70,12 @@ public class ArtifactDeployerCopy implements FilePath.FileCallable<List<Artifact
         LocalCopy localCopy = new LocalCopy();
         List<File> outputFilesList = localCopy.copyAndGetNumbers(fileSet, flatten, new File(remote));
         if (inputFiles != outputFilesList.size()) {
-            listener.getLogger().println(String.format("[ArtifactDeployer] - All the files have not been deployed. There were %d input files but only %d were copied. Maybe you need to use the 'Delete content of remote directory' feature for deleting the remote directory before deploying.", inputFiles, outputFilesList.size()));
+            listener.getLogger().printf("[ArtifactDeployer] - All the files have not been deployed. There were %d input files but only %d were copied. Maybe you need to use the 'Delete content of remote directory' feature for deleting the remote directory before deploying.%n", inputFiles, outputFilesList.size());
         } else {
-            listener.getLogger().println(String.format("[ArtifactDeployer] - %d file(s) have been copied from the '%s' to '%s'.", outputFilesList.size(), localBasedir.getPath(), outputFilePath));
+            listener.getLogger().printf("[ArtifactDeployer] - %d file(s) have been copied from the '%s' to '%s'.%n", outputFilesList.size(), localBasedir.getPath(), outputFilePath);
         }
 
-        List<ArtifactDeployerVO> deployedArtifactsResultList = new LinkedList<ArtifactDeployerVO>();
+        List<ArtifactDeployerVO> deployedArtifactsResultList = new LinkedList<>();
         for (File renoteFile : outputFilesList) {
             ArtifactDeployerVO deploymentResultEntry = new ArtifactDeployerVO();
             deploymentResultEntry.setId(++numberOfCurrentDeployedArtifacts);

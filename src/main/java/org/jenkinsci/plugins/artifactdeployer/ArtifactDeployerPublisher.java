@@ -22,8 +22,7 @@
  */
 package org.jenkinsci.plugins.artifactdeployer;
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Launcher;
@@ -71,11 +70,13 @@ public class ArtifactDeployerPublisher extends Recorder implements MatrixAggrega
         return this;
     }
 
+    @Override
     public BuildStepMonitor getRequiredMonitorService() {
         return BuildStepMonitor.NONE;
     }
 
     @Override
+    @NonNull
     public Collection<? extends Action> getProjectActions(AbstractProject<?, ?> project) {
         return Arrays.asList(new ArtifactDeployerProjectAction(project));
     }
@@ -145,7 +146,7 @@ public class ArtifactDeployerPublisher extends Recorder implements MatrixAggrega
 
     private Map<Integer, List<ArtifactDeployerVO>> processDeployment(AbstractBuild<?, ?> build, final BuildListener listener, int currentNbDeployedArtifacts) throws ArtifactDeployerException {
 
-        Map<Integer, List<ArtifactDeployerVO>> deployedArtifacts = new HashMap<Integer, List<ArtifactDeployerVO>>();
+        Map<Integer, List<ArtifactDeployerVO>> deployedArtifacts = new HashMap<>();
         FilePath workspace = build.getWorkspace();
 
         int numberOfCurrentDeployedArtifacts = currentNbDeployedArtifacts;
@@ -220,7 +221,7 @@ public class ArtifactDeployerPublisher extends Recorder implements MatrixAggrega
     }
 
     private boolean isFailNoFilesDeploy(List<ArtifactDeployerVO> results, ArtifactDeployerEntry entry) {
-        return ((results == null || results.size() == 0) && entry.isFailNoFilesDeploy());
+        return ((results == null || results.isEmpty()) && entry.isFailNoFilesDeploy());
     }
 
     private String printConfiguration(String includes, String excludes, String basedir, String outputPath) {
@@ -298,18 +299,18 @@ public class ArtifactDeployerPublisher extends Recorder implements MatrixAggrega
                                         if (workspace != null){
                                             FilePath remoteArtifactPath = new FilePath(workspace.getChannel(), vo.getRemotePath());
                                             try {
-                                                if (remoteArtifactPath != null && remoteArtifactPath.exists()) {
+                                                if (remoteArtifactPath.exists()) {
                                                     remoteArtifactPath.deleteRecursive();
                                                 }
 
                                                 FilePath parent = remoteArtifactPath.getParent();
                                                 boolean rest;
                                                 do {
-                                                    rest = parent.exists() && parent.list().size() == 0;
+                                                    rest = (parent != null) && parent.exists() && parent.list().isEmpty();
                                                     if (rest) {
                                                         parent.delete();
+                                                        parent = parent.getParent();
                                                     }
-                                                    parent = parent.getParent();
                                                 } while (rest);
 
                                             } catch (IOException ioe) {
@@ -343,6 +344,7 @@ public class ArtifactDeployerPublisher extends Recorder implements MatrixAggrega
         }
 
         @Override
+        @NonNull
         public String getDisplayName() {
             return DISPLAY_NAME;
         }

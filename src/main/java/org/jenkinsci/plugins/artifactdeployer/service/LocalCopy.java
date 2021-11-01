@@ -33,7 +33,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -45,10 +44,8 @@ public class LocalCopy {
         List<File> deployedFiles = new ArrayList<>(fileSet.size());
 
         File baseDir = fileSet.getDir();
-        Iterator<Resource> iter = fileSet.iterator();
-        while (iter.hasNext()) {
-            FileResource resource = (FileResource) iter.next();
-            File source = resource.getFile();
+        for (Resource resource : fileSet) {
+            File source = ((FileResource) resource).getFile();
             File dest = computeDestFile(baseDir, targetDir, source, flatten);
 
             try {

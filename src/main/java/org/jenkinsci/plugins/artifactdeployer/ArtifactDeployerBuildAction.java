@@ -39,7 +39,7 @@ public class ArtifactDeployerBuildAction implements Action, StaplerProxy {
 
     private AbstractBuild<?, ?> owner;
 
-    private Map<Integer, List<ArtifactDeployerVO>> deployedArtifactsInfo = new HashMap<Integer, List<ArtifactDeployerVO>>();
+    private final Map<Integer, List<ArtifactDeployerVO>> deployedArtifactsInfo = new HashMap<>();
 
     public void setArtifactsInfo(AbstractBuild<?, ?> owner, Map<Integer, List<ArtifactDeployerVO>> deployedArtifactsInfo) {
         this.owner = owner;

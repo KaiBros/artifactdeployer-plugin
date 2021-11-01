@@ -32,7 +32,7 @@ import java.io.Serializable;
  */
 public class DeployedArtifactsActionManager implements Serializable {
 
-    private static DeployedArtifactsActionManager INSTANCE = new DeployedArtifactsActionManager();
+    private static final DeployedArtifactsActionManager INSTANCE = new DeployedArtifactsActionManager();
 
     private DeployedArtifactsActionManager() {
     }
@@ -52,4 +52,3 @@ public class DeployedArtifactsActionManager implements Serializable {
     }
 
 }
-

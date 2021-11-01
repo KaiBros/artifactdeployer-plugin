@@ -1,119 +1,109 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.jenkins-ci.plugins</groupId>
-        <artifactId>plugin</artifactId>
-        <version>4.29</version>
-        <relativePath />
-    </parent>
+  <parent>
+    <groupId>org.jenkins-ci.plugins</groupId>
+    <artifactId>plugin</artifactId>
+    <version>4.28</version>
+    <relativePath/>
+  </parent>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven-release-plugin.version>2.5</maven-release-plugin.version>
-        <java.level>8</java.level>
-        <jenkins.version>2.289.1</jenkins.version>
-    </properties>
+  <artifactId>artifactdeployer</artifactId>
+  <name>Jenkins Artifact Deployer Plug-in</name>
+  <version>1.3-SNAPSHOT</version>
+  <packaging>hpi</packaging>
+  <url>http://wiki.jenkins-ci.org/display/JENKINS/ArtifactDeployer+Plugin</url>
 
-    <artifactId>artifactdeployer</artifactId>
-    <packaging>hpi</packaging>
-    <name>Jenkins Artifact Deployer Plug-in</name>
-    <version>1.3-SNAPSHOT</version>
-    <url>http://wiki.jenkins-ci.org/display/JENKINS/ArtifactDeployer+Plugin</url>
-
-    <licenses>
-        <license>
-            <name>MIT license</name>
-            <comments>All source code is under the MIT license.</comments>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>gbois</id>
-            <name>Gregory Boissinot</name>
-            <timezone>+1</timezone>
-            <roles>
-                <role>Former Project Owner</role>
-                <role>Project Lead Developer</role>
-            </roles>
-        </developer>
-        <developer>
-          <id>seanturner83</id>
-          <name>Sean Turner</name>
-          <roles>
-            <role>Maintainer</role>
-          </roles>
-        </developer>
-    </developers>
+  <properties>
+    <jenkins.version>2.277.1</jenkins.version>
+    <java.level>8</java.level>
+  </properties>
 
 
-    <scm>
-	    <connection>scm:git:ssh://github.com/jenkinsci/artifactdeployer-plugin.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/jenkinsci/artifactdeployer-plugin.git</developerConnection>
-        <url>https://github.com/jenkinsci/artifactdeployer-plugin</url>
-        <tag>artifactdeployer-1.0</tag>
-    </scm>
-
-<!--    <dependencyManagement>-->
-<!--        <dependencies>-->
-<!--            <dependency>-->
-<!--                <groupId>io.jenkins.tools.bom</groupId>-->
-<!--                <artifactId>bom-2.289.x</artifactId>-->
-<!--                <version>919.v3c802a29576e</version>-->
-<!--                <scope>import</scope>-->
-<!--                <type>pom</type>-->
-<!--            </dependency>-->
-<!--        </dependencies>-->
-<!--    </dependencyManagement>-->
-
+<!--  <dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins</groupId>
-            <artifactId>matrix-project</artifactId>
-            <version>1.3</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
-        </dependency>
+      <dependency>
+        <groupId>io.jenkins.tools.bom</groupId>
+        <artifactId>bom-2.277.x</artifactId>
+        <version>961.vf0c9f6f59827</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
     </dependencies>
+  </dependencyManagement>-->
 
-    <repositories>
-        <repository>
-            <id>repo.jenkins-ci.org</id>
-            <url>https://repo.jenkins-ci.org/public/</url>
-        </repository>
-        <repository>
-            <id>atlassian-public</id>
-            <url>https://maven.atlassian.com/repository/releases</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-                <checksumPolicy>warn</checksumPolicy>
-            </releases>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>repo.jenkins-ci.org</id>
-            <url>https://repo.jenkins-ci.org/releases/</url>
-        </pluginRepository>
-    </pluginRepositories>
-<build>
+  <licenses>
+    <license>
+      <name>MIT license</name>
+      <comments>All source code is under the MIT license.</comments>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>gbois</id>
+      <name>Gregory Boissinot</name>
+      <timezone>+1</timezone>
+      <roles>
+        <role>Former Project Owner</role>
+        <role>Project Lead Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>seanturner83</id>
+      <name>Sean Turner</name>
+      <roles>
+        <role>Maintainer</role>
+      </roles>
+    </developer>
+  </developers>
+
+
+  <scm>
+    <connection>scm:git:ssh://github.com/jenkinsci/artifactdeployer-plugin.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/jenkinsci/artifactdeployer-plugin.git</developerConnection>
+    <url>https://github.com/jenkinsci/artifactdeployer-plugin</url>
+    <tag>artifactdeployer-1.0</tag>
+  </scm>
+
+  <build>
     <plugins>
       <plugin>
         <groupId>org.jenkins-ci.tools</groupId>
         <artifactId>maven-hpi-plugin</artifactId>
-        <extensions>true</extensions>
+        <!--        <extensions>true</extensions>-->
+        <configuration>
+          <compatibleSinceVersion>1.1</compatibleSinceVersion>
+          <minimumJavaVersion/>
+        </configuration>
       </plugin>
     </plugins>
   </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins</groupId>
+      <artifactId>matrix-project</artifactId>
+      <version>1.3</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <id>repo.jenkins-ci.org</id>
+      <url>https://repo.jenkins-ci.org/public/</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>repo.jenkins-ci.org</id>
+      <url>https://repo.jenkins-ci.org/public/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
 </project>

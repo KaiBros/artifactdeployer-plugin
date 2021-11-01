@@ -66,7 +66,7 @@ public class DeployedArtifactsResult {
             }
         };
 
-        SortedSet<ArtifactDeployerVO> result = new TreeSet<ArtifactDeployerVO>(comparator);
+        SortedSet<ArtifactDeployerVO> result = new TreeSet<>(comparator);
         if (deployedArtifactsInfo != null) {
             for (List<ArtifactDeployerVO> list : deployedArtifactsInfo.values()) {
                 result.addAll(list);

@@ -22,8 +22,7 @@
  */
 package org.jenkinsci.plugins.artifactdeployer;
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Launcher;
@@ -92,7 +91,7 @@ public class ArtifactDeployerBuilder extends Builder implements Serializable {
             throw new ArtifactDeployerException("A remote directory must be set.");
         }
 
-        Map<Integer, List<ArtifactDeployerVO>> deployedArtifacts = new HashMap<Integer, List<ArtifactDeployerVO>>();
+        Map<Integer, List<ArtifactDeployerVO>> deployedArtifacts = new HashMap<>();
         final String includes = build.getEnvironment(listener).expand(entry.getIncludes());
         final String excludes = build.getEnvironment(listener).expand(entry.getExcludes());
         final String basedir = build.getEnvironment(listener).expand(entry.getBasedir());
@@ -158,7 +157,7 @@ public class ArtifactDeployerBuilder extends Builder implements Serializable {
             Iterator<Builder> it = projectBuilders.iterator();
 
             //Compute ArtifactDeployerBuilder elements
-            List<ArtifactDeployerBuilder> artifactDeployerBuilders = new ArrayList<ArtifactDeployerBuilder>();
+            List<ArtifactDeployerBuilder> artifactDeployerBuilders = new ArrayList<>();
             while (it.hasNext()) {
                 Builder builder = it.next();
                 if (DescriptorImpl.DISPLAY_NAME.equals(builder.getDescriptor().getDisplayName())) {
@@ -187,9 +186,9 @@ public class ArtifactDeployerBuilder extends Builder implements Serializable {
                                             if (remoteArtifactPath.exists()) {
                                                 remoteArtifactPath.deleteRecursive();
                                             }
-
-                                            if (remoteArtifactPath.getParent().exists() && remoteArtifactPath.getParent().list().size() == 0) {
-                                                remoteArtifactPath.getParent().delete();
+                                            FilePath parent = remoteArtifactPath.getParent();
+                                            if (parent != null && parent.exists() && parent.list().isEmpty()) {
+                                                parent.delete();
                                             }
 
                                         } catch (IOException ioe) {
@@ -221,6 +220,7 @@ public class ArtifactDeployerBuilder extends Builder implements Serializable {
         }
 
         @Override
+        @NonNull
         public String getDisplayName() {
             return DISPLAY_NAME;
         }
